@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - Aula 050.B</title>
+
+    <!-- Vincula o CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================
+         MENU
+    ====================================== -->
+
+    <nav class="navbar">
+
+        <div class="navbar-container">
+
+
+            <!-- Nome do site -->
+
+            <a
+                href="/"
+                class="brand"
+            >
+                Avaliação contínua:
+                <strong>Aula 050.B</strong>
+            </a>
+
+
+            <!-- Home -->
+
+            <a
+                href="/"
+                class="nav-link"
+            >
+                Home
+            </a>
+
+
+            <!-- Login -->
+
+            <a
+                href="/login"
+                class="nav-link"
+            >
+                Login
+            </a>
+
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================
+         LOGIN
+    ====================================== -->
+
+    <main class="login-container">
+
+
+        <!-- Caixa do Login -->
+
+        <div class="login-card">
+
+
+            <!-- Título -->
+
+            <h1>
+                Login:
+            </h1>
+
+
+            <!-- Formulário -->
+
+            <form
+                method="POST"
+                action="/login"
+            >
+
+
+                <!-- Usuário -->
+
+                <input
+                    type="text"
+                    name="usuario"
+                    placeholder="Usuário ou e-mail"
+                >
+
+
+                <!-- Senha -->
+
+                <input
+                    type="password"
+                    name="senha"
+                    placeholder="Informe a sua senha"
+                >
+
+
+                <!-- Botão -->
+
+                <button
+                    type="submit"
+                    class="login-button"
+                >
+                    Enviar
+                </button>
+
+
+            </form>
+
+
+        </div>
+
+
+
+        <!-- =====================================
+             MENSAGEM DO FLASK
+        ====================================== -->
+
+        {% if mensagem %}
+
+            <p>
+                {{ mensagem }}
+            </p>
+
+        {% endif %}
+
+
+        <!-- =====================================
+             DATA
+        ====================================== -->
+
+        <div class="date-info">
+
+            <p>
+                The local date and time is August 19, 2026 12:19 PM.
+            </p>
+
+            <p>
+                That was a few seconds ago.
+            </p>
+
+        </div>
+
+
+    </main>
+
+
+</body>
+
+</html>

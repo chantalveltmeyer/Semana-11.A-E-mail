@@ -1,12 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Flasky</title>
+    <title>Avaliação contínua: Aula 050.B</title>
+
+
+    <!-- ==============================
+         CSS
+    =============================== -->
 
     <style>
+
+        /* CONFIGURAÇÃO GERAL */
+
         * {
             box-sizing: border-box;
         }
@@ -15,159 +26,514 @@
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
             color: #222;
-            background: white;
+            background-color: white;
         }
 
+
+        /* ==============================
+           MENU PRETO
+        =============================== */
+
         .navbar {
-            height: 63px;
-            background: #222;
-            border-radius: 0 0 4px 4px;
+            height: 54px;
+            background-color: #222;
         }
 
         .navbar-container {
-            width: 1425px;
-            max-width: calc(100% - 30px);
+            width: 1100px;
+            max-width: calc(100% - 40px);
+            height: 54px;
+
             margin: 0 auto;
-            height: 100%;
 
             display: flex;
             align-items: center;
         }
 
         .brand {
-            color: #aaa;
-            font-size: 24px;
+            color: #999;
             text-decoration: none;
-            margin-right: 38px;
+
+            font-size: 20px;
+
+            margin-right: 35px;
         }
 
-        .home {
+        .brand strong {
             color: #aaa;
-            font-size: 18px;
+        }
+
+        .nav-link {
+            color: #aaa;
             text-decoration: none;
-        }
-
-        .container {
-            width: 1425px;
-            max-width: calc(100% - 30px);
-            margin: 0 auto;
-            padding-top: 76px;
-        }
-
-        /* MENSAGEM FLASH */
-        .alert {
-            background-color: #fcf8e3;
-            border: 1px solid #faebcc;
-            color: #8a6d3b;
-
-            padding: 18px 10px;
-            margin: -76px 0 76px 0;
-
-            font-size: 18px;
-        }
-
-        h1 {
-            font-size: 44px;
-            font-weight: 400;
-            margin: 0 0 22px;
-            padding-bottom: 23px;
-            border-bottom: 1px solid #eee;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            height: 53px;
-            padding: 8px 12px;
-            font-size: 16px;
-
-            border: 1px solid #ccc;
-            border-radius: 5px;
-
-            outline: none;
-        }
-
-        input[type="text"]:focus {
-            border-color: #66afe9;
-        }
-
-        button {
-            margin-top: 17px;
-            padding: 12px 20px;
 
             font-size: 16px;
-            color: #222;
-            background: #fff;
 
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            margin-right: 35px;
 
             cursor: pointer;
         }
 
-        button:hover {
-            background: #eee;
+        .nav-link:hover {
+            color: white;
         }
 
-        .hello {
-            margin-top: 25px;
-            font-size: 20px;
+
+        /* ==============================
+           CONTEÚDO DA HOME
+        =============================== */
+
+        .container {
+            width: 1100px;
+            max-width: calc(100% - 40px);
+
+            margin: 0 auto;
         }
+
+        .home {
+            padding-top: 66px;
+        }
+
+
+        /* ==============================
+           TÍTULO
+        =============================== */
+
+        .home h1 {
+            font-size: 42px;
+            font-weight: 400;
+
+            margin: 0 0 18px 0;
+        }
+
+
+        /* ==============================
+           TEXTOS
+        =============================== */
+
+        .info {
+            font-size: 28px;
+
+            margin: 0 0 20px 0;
+        }
+
+
+        /* ==============================
+           IP E HOST
+        =============================== */
+
+        .system-info {
+            margin-top: 45px;
+            margin-bottom: 20px;
+
+            font-size: 20px;
+            line-height: 1.65;
+        }
+
+
+        /* ==============================
+           LINHA
+        =============================== */
+
+        .divider {
+            border: 0;
+            border-top: 1px solid #eee;
+
+            margin: 15px 0 24px 0;
+        }
+
+
+        /* ==============================
+           CAMPOS DO FORMULÁRIO
+        =============================== */
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+
+            font-weight: bold;
+
+            font-size: 16px;
+
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select {
+
+            width: 100%;
+
+            height: 40px;
+
+            padding: 8px 16px;
+
+            font-size: 16px;
+
+            color: #444;
+
+            background-color: white;
+
+            border: 1px solid #ccc;
+
+            border-radius: 4px;
+        }
+
+
+        /* ==============================
+           BOTÃO SUBMIT
+        =============================== */
+
+        .submit-button {
+
+            padding: 9px 14px;
+
+            font-size: 16px;
+
+            color: #222;
+
+            background-color: white;
+
+            border: 1px solid #ccc;
+
+            border-radius: 4px;
+
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background-color: #e6e6e6;
+        }
+
+
+        /* ==============================
+           DATA
+        =============================== */
+
+        .date-info {
+
+            margin-top: 51px;
+
+            font-size: 18px;
+        }
+
+        .date-info p {
+            margin: 0 0 14px 0;
+        }
+
+
+        /* ==============================
+           CELULAR
+        =============================== */
+
+        @media (max-width: 700px) {
+
+            .navbar-container {
+                max-width: calc(100% - 30px);
+            }
+
+            .brand {
+                font-size: 16px;
+                margin-right: 20px;
+            }
+
+            .nav-link {
+                font-size: 14px;
+                margin-right: 15px;
+            }
+
+            .container {
+                max-width: calc(100% - 30px);
+            }
+
+            .home {
+                padding-top: 40px;
+            }
+
+            .home h1 {
+                font-size: 34px;
+            }
+
+            .info {
+                font-size: 21px;
+            }
+
+            .system-info {
+                font-size: 16px;
+            }
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
+
+    <!-- =================================
+         MENU
+    ================================== -->
+
     <nav class="navbar">
+
         <div class="navbar-container">
-            <a href="/" class="brand">Flasky</a>
-            <a href="/" class="home">Home</a>
+
+
+            <!-- NOME DO SITE -->
+
+            <a
+                href="/"
+                class="brand"
+            >
+                Avaliação contínua:
+                <strong>Aula 050.B</strong>
+            </a>
+
+
+            <!-- HOME -->
+
+            <a
+                href="/"
+                class="nav-link"
+            >
+                Home
+            </a>
+
+
+            <!-- LOGIN -->
+
+            <a
+                href="/login"
+                class="nav-link"
+            >
+                Login
+            </a>
+
+
         </div>
+
     </nav>
 
-    <main class="container">
-
-        <!-- MENSAGEM FLASH -->
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
 
 
-        {% if name %}
-            <h1>Hello, {{ name }}!</h1>
-        {% else %}
-            <h1>Hello, Stranger!</h1>
-        {% endif %}
+    <!-- =================================
+         HOME
+    ================================== -->
+
+    <main>
+
+        <div class="container home">
 
 
-        <form method="POST">
+            <!-- TÍTULO -->
 
-            <label for="name">What is your name?</label>
+           <h1>
+    Olá, {{ nome or "Estranho" }}!
+</h1>
 
-            <input
-                type="text"
-                id="name"
-                name="name"
-                required
+
+            <!-- INSTITUIÇÃO -->
+
+            <p class="info">
+
+                A sua Instituição de ensino é
+
+                {{ instituicao or "None" }}
+
+            </p>
+
+
+            <!-- DISCIPLINA -->
+
+            <p class="info">
+
+                Está cursando a disciplina de
+
+                {{ disciplina or "" }}
+
+            </p>
+
+
+            <!-- IP E HOST -->
+
+            <div class="system-info">
+
+                <div>
+                    O IP do computador remoto é: None
+                </div>
+
+                <div>
+                    O host da aplicação é: None
+                </div>
+
+            </div>
+
+
+            <!-- LINHA -->
+
+            <hr class="divider">
+
+
+
+            <!-- =================================
+                 FORMULÁRIO
+            ================================== -->
+
+            <form
+                method="POST"
+                action="/"
             >
 
-            <button type="submit">Submit</button>
 
-        </form>
+                <!-- NOME -->
+
+                <div class="form-group">
+
+                    <label for="nome">
+
+                        Informe o seu nome
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        value="{{ nome or '' }}"
+                    >
+
+                </div>
+
+
+
+                <!-- SOBRENOME -->
+
+                <div class="form-group">
+
+                    <label for="sobrenome">
+
+                        Informe o seu sobrenome:
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="sobrenome"
+                        name="sobrenome"
+                        value="{{ sobrenome or '' }}"
+                    >
+
+                </div>
+
+
+
+                <!-- INSTITUIÇÃO -->
+
+                <div class="form-group">
+
+                    <label for="instituicao">
+
+                        Informe a sua Instituição de ensino:
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="instituicao"
+                        name="instituicao"
+                        value="{{ instituicao or '' }}"
+                    >
+
+                </div>
+
+
+
+                <!-- DISCIPLINA -->
+
+                <div class="form-group">
+
+                    <label for="disciplina">
+
+                        Informe a sua disciplina:
+
+                    </label>
+
+
+                    <select
+                        id="disciplina"
+                        name="disciplina"
+                    >
+
+                        <option value="DSWA5">
+
+                            DSWA5
+
+                        </option>
+
+
+                        <option value="DSWA6">
+
+                            DSWA6
+
+                        </option>
+
+
+                        <option value="DSWA7">
+
+                            DSWA7
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- BOTÃO -->
+
+                <button
+                    type="submit"
+                    class="submit-button"
+                >
+
+                    Submit
+
+                </button>
+
+
+            </form>
+
+
+
+            <!-- =================================
+                 DATA
+            ================================== -->
+
+            <div class="date-info">
+
+                <p>
+                    The local date and time is August 19, 2026 12:18 PM.
+                </p>
+
+                <p>
+                    That was in a few seconds.
+                </p>
+
+            </div>
+
+
+        </div>
 
     </main>
 
+
 </body>
+
 </html>
