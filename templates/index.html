@@ -225,6 +225,62 @@
 
 
         /* ==============================
+           RELAÇÃO DE USUÁRIOS
+        =============================== */
+
+        .usuarios-section {
+
+            margin-top: 55px;
+            margin-bottom: 50px;
+
+        }
+
+        .usuarios-section h2 {
+
+            font-size: 28px;
+            font-weight: 400;
+
+            margin: 0 0 20px 0;
+
+        }
+
+        .usuarios-table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            font-size: 16px;
+
+        }
+
+        .usuarios-table th,
+        .usuarios-table td {
+
+            text-align: left;
+
+            padding: 12px;
+
+            border-bottom: 1px solid #ddd;
+
+        }
+
+        .usuarios-table th {
+
+            font-weight: bold;
+
+            background-color: #f5f5f5;
+
+        }
+
+        .usuarios-table tr:hover {
+
+            background-color: #f9f9f9;
+
+        }
+
+
+        /* ==============================
            CELULAR
         =============================== */
 
@@ -263,6 +319,7 @@
             .system-info {
                 font-size: 16px;
             }
+
         }
 
     </style>
@@ -330,9 +387,9 @@
 
             <!-- TÍTULO -->
 
-           <h1>
-    Olá, {{ nome or "Estranho" }}!
-</h1>
+            <h1>
+                Olá, {{ nome or "Estranho" }}!
+            </h1>
 
 
             <!-- INSTITUIÇÃO -->
@@ -527,6 +584,75 @@
                 </p>
 
             </div>
+
+
+
+            <!-- =================================
+                 RELAÇÃO DE USUÁRIOS
+                 NOVA PARTE
+            ================================== -->
+
+            <section class="usuarios-section">
+
+                <hr class="divider">
+
+                <h2>
+                    Relação de usuários cadastrados
+                </h2>
+
+
+                <table class="usuarios-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Nome do usuário
+                            </th>
+
+                            <th>
+                                Função
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for usuario in usuarios %}
+
+                        <tr>
+
+                            <td>
+                                {{ usuario["usuario"] }}
+                            </td>
+
+                            <td>
+                                {{ usuario["funcao"] }}
+                            </td>
+
+                        </tr>
+
+                        {% else %}
+
+                        <tr>
+
+                            <td colspan="2">
+                                Nenhum usuário cadastrado.
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </section>
 
 
         </div>
