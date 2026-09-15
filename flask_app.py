@@ -1,327 +1,232 @@
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for
+
 import sqlite3
-import os
+
 
 app = Flask(__name__)
 
-# Chave usada para a sessão
-app.secret_key = "chave-secreta"
-
-# Caminho do banco de dados
-CAMINHO_BANCO = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)),
-    "banco.db"
-)
+app.secret_key = "uma-chave-secreta"
 
 
-# ==========================================
-# CONEXÃO COM O BANCO
-# ==========================================
+# ==========================================================
+# CONFIGURAÇÃO DO BANCO
+# ==========================================================
+
+DATABASE = "banco.db"
+
 
 def conectar_banco():
-    conexao = sqlite3.connect(CAMINHO_BANCO)
+    conexao = sqlite3.connect(DATABASE)
     conexao.row_factory = sqlite3.Row
     return conexao
 
 
-# ==========================================
-# CRIAÇÃO DO BANCO
-# ==========================================
+# ==========================================================
+# CRIAR BANCO E TABELAS
+# ==========================================================
 
 def criar_banco():
 
     conexao = conectar_banco()
+    cursor = conexao.cursor()
 
-    # --------------------------------------
-    # TABELA DE ALUNOS
-    # --------------------------------------
-
-    conexao.execute("""
-        CREATE TABLE IF NOT EXISTS alunos (
+    # Tabela de funções
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS funcoes (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nome TEXT NOT NULL,
-            sobrenome TEXT NOT NULL,
-            instituicao TEXT NOT NULL,
-            disciplina TEXT NOT NULL
+            nome TEXT NOT NULL UNIQUE
         )
     """)
 
-    # --------------------------------------
-    # TABELA DE USUÁRIOS
-    # --------------------------------------
-
-    conexao.execute("""
+    # Tabela de usuários
+    cursor.execute("""
         CREATE TABLE IF NOT EXISTS usuarios (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            usuario TEXT NOT NULL UNIQUE,
-            senha TEXT NOT NULL
+            nome TEXT NOT NULL,
+            funcao_id INTEGER NOT NULL,
+            FOREIGN KEY (funcao_id) REFERENCES funcoes(id)
         )
     """)
 
-    # --------------------------------------
-    # VERIFICA SE A COLUNA "funcao" EXISTE
-    # --------------------------------------
+    # Cadastra as três funções necessárias
+    cursor.execute("""
+        INSERT OR IGNORE INTO funcoes (nome)
+        VALUES ('Administrator')
+    """)
 
-    colunas = conexao.execute("""
-        PRAGMA table_info(usuarios)
-    """).fetchall()
+    cursor.execute("""
+        INSERT OR IGNORE INTO funcoes (nome)
+        VALUES ('Moderator')
+    """)
 
-    nomes_colunas = [coluna["name"] for coluna in colunas]
-
-    # Se a tabela já existia sem a coluna funcao,
-    # adiciona a coluna automaticamente.
-    if "funcao" not in nomes_colunas:
-
-        conexao.execute("""
-            ALTER TABLE usuarios
-            ADD COLUMN funcao TEXT NOT NULL DEFAULT 'User'
-        """)
+    cursor.execute("""
+        INSERT OR IGNORE INTO funcoes (nome)
+        VALUES ('User')
+    """)
 
     conexao.commit()
     conexao.close()
 
 
-# Cria o banco quando o programa inicia
-criar_banco()
-
-
-# ==========================================
+# ==========================================================
 # PÁGINA PRINCIPAL
-# ==========================================
+# ==========================================================
 
 @app.route("/", methods=["GET", "POST"])
 def index():
 
-    # --------------------------------------
-    # CADASTRO DO ALUNO
-    # --------------------------------------
+    # ------------------------------------------------------
+    # CADASTRAR USUÁRIO
+    # ------------------------------------------------------
 
     if request.method == "POST":
 
         nome = request.form.get("nome")
-        sobrenome = request.form.get("sobrenome")
-        instituicao = request.form.get("instituicao")
-        disciplina = request.form.get("disciplina")
+        funcao = request.form.get("funcao")
 
-        # Salva os dados na sessão
-        session["nome"] = nome
-        session["sobrenome"] = sobrenome
-        session["instituicao"] = instituicao
-        session["disciplina"] = disciplina
+        # Verifica se os campos foram preenchidos
+        if nome and funcao:
 
-        # Salva os dados no banco
-        conexao = conectar_banco()
+            conexao = conectar_banco()
+            cursor = conexao.cursor()
 
-        conexao.execute("""
-            INSERT INTO alunos
-            (nome, sobrenome, instituicao, disciplina)
-            VALUES (?, ?, ?, ?)
-        """, (
-            nome,
-            sobrenome,
-            instituicao,
-            disciplina
-        ))
+            # Procura a função escolhida
+            cursor.execute("""
+                SELECT id
+                FROM funcoes
+                WHERE nome = ?
+            """, (funcao,))
 
-        conexao.commit()
-        conexao.close()
+            resultado = cursor.fetchone()
 
-        # Redireciona para evitar duplicação do cadastro
+            if resultado:
+
+                funcao_id = resultado["id"]
+
+                # Insere o usuário no banco
+                cursor.execute("""
+                    INSERT INTO usuarios (nome, funcao_id)
+                    VALUES (?, ?)
+                """, (nome, funcao_id))
+
+                conexao.commit()
+
+            conexao.close()
+
+        # Atualiza a página
         return redirect(url_for("index"))
 
-    # --------------------------------------
-    # BUSCA OS USUÁRIOS CADASTRADOS
-    # --------------------------------------
+
+    # ------------------------------------------------------
+    # BUSCAR USUÁRIOS
+    # ------------------------------------------------------
 
     conexao = conectar_banco()
+    cursor = conexao.cursor()
 
-    usuarios = conexao.execute("""
-        SELECT id, usuario, funcao
+    cursor.execute("""
+        SELECT
+            usuarios.id,
+            usuarios.nome,
+            funcoes.nome AS funcao
         FROM usuarios
+        INNER JOIN funcoes
+            ON usuarios.funcao_id = funcoes.id
+        ORDER BY usuarios.id
+    """)
+
+    usuarios = cursor.fetchall()
+
+
+    # ------------------------------------------------------
+    # CONTADOR DE USUÁRIOS
+    # ------------------------------------------------------
+
+    cursor.execute("""
+        SELECT COUNT(*) AS quantidade
+        FROM usuarios
+    """)
+
+    quantidade_usuarios = cursor.fetchone()["quantidade"]
+
+
+    # ------------------------------------------------------
+    # BUSCAR FUNÇÕES
+    # ------------------------------------------------------
+
+    cursor.execute("""
+        SELECT
+            id,
+            nome
+        FROM funcoes
         ORDER BY id
-    """).fetchall()
+    """)
+
+    funcoes = cursor.fetchall()
+
+
+    # ------------------------------------------------------
+    # CONTADOR DE FUNÇÕES
+    # ------------------------------------------------------
+
+    cursor.execute("""
+        SELECT COUNT(*) AS quantidade
+        FROM funcoes
+    """)
+
+    quantidade_funcoes = cursor.fetchone()["quantidade"]
+
+
+    # ------------------------------------------------------
+    # AGRUPAR USUÁRIOS POR FUNÇÃO
+    # ------------------------------------------------------
+
+    usuarios_por_funcao = {}
+
+    for funcao in funcoes:
+
+        cursor.execute("""
+            SELECT usuarios.nome
+            FROM usuarios
+            WHERE usuarios.funcao_id = ?
+            ORDER BY usuarios.id
+        """, (funcao["id"],))
+
+        usuarios_por_funcao[funcao["nome"]] = cursor.fetchall()
+
 
     conexao.close()
 
-    # --------------------------------------
-    # MOSTRA A PÁGINA
-    # --------------------------------------
+
+    # ------------------------------------------------------
+    # ENVIAR DADOS PARA O HTML
+    # ------------------------------------------------------
 
     return render_template(
         "index.html",
 
-        nome=session.get("nome"),
-        sobrenome=session.get("sobrenome"),
-        instituicao=session.get("instituicao"),
-        disciplina=session.get("disciplina"),
-
-        # Envia os usuários para o HTML
         usuarios=usuarios,
 
-        # Usuário atualmente logado
-        usuario_logado=session.get("usuario"),
-        funcao_logado=session.get("funcao")
+        funcoes=funcoes,
+
+        usuarios_por_funcao=usuarios_por_funcao,
+
+        quantidade_usuarios=quantidade_usuarios,
+
+        quantidade_funcoes=quantidade_funcoes
     )
 
 
-# ==========================================
-# LOGIN
-# ==========================================
+# ==========================================================
+# CRIAR O BANCO QUANDO A APLICAÇÃO INICIAR
+# ==========================================================
 
-@app.route("/login", methods=["GET", "POST"])
-def login():
-
-    mensagem = ""
-
-    if request.method == "POST":
-
-        usuario = request.form.get("usuario")
-        senha = request.form.get("senha")
-
-        # Verifica se os campos foram preenchidos
-        if usuario and senha:
-
-            conexao = conectar_banco()
-
-            usuario_banco = conexao.execute("""
-                SELECT *
-                FROM usuarios
-                WHERE usuario = ?
-                AND senha = ?
-            """, (
-                usuario,
-                senha
-            )).fetchone()
-
-            conexao.close()
-
-            # ----------------------------------
-            # LOGIN CORRETO
-            # ----------------------------------
-
-            if usuario_banco:
-
-                # Salva usuário na sessão
-                session["usuario"] = usuario_banco["usuario"]
-
-                # Salva a função na sessão
-                session["funcao"] = usuario_banco["funcao"]
-
-                mensagem = "Login realizado com sucesso!"
-
-                # Vai para a página inicial
-                return redirect(url_for("index"))
-
-            # ----------------------------------
-            # LOGIN INCORRETO
-            # ----------------------------------
-
-            else:
-
-                mensagem = "Usuário ou senha incorretos."
-
-        else:
-
-            mensagem = "Informe o usuário e a senha."
-
-    return render_template(
-        "login.html",
-        mensagem=mensagem
-    )
+criar_banco()
 
 
-# ==========================================
-# CADASTRO DE USUÁRIO
-# ==========================================
-
-@app.route("/cadastro", methods=["GET", "POST"])
-def cadastro():
-
-    mensagem = ""
-
-    if request.method == "POST":
-
-        usuario = request.form.get("usuario")
-        senha = request.form.get("senha")
-
-        # Pega a função escolhida no formulário
-        funcao = request.form.get("funcao")
-
-        # ----------------------------------
-        # VERIFICA A FUNÇÃO
-        # ----------------------------------
-
-        # Só permite essas duas funções
-        if funcao not in ["User", "Administrador"]:
-            funcao = "User"
-
-        # ----------------------------------
-        # VERIFICA USUÁRIO E SENHA
-        # ----------------------------------
-
-        if usuario and senha:
-
-            conexao = conectar_banco()
-
-            try:
-
-                # ----------------------------------
-                # CADASTRA O USUÁRIO
-                # ----------------------------------
-
-                conexao.execute("""
-                    INSERT INTO usuarios
-                    (usuario, senha, funcao)
-                    VALUES (?, ?, ?)
-                """, (
-                    usuario,
-                    senha,
-                    funcao
-                ))
-
-                conexao.commit()
-
-                mensagem = "Usuário cadastrado com sucesso!"
-
-            except sqlite3.IntegrityError:
-
-                mensagem = "Esse usuário já existe."
-
-            finally:
-
-                conexao.close()
-
-        else:
-
-            mensagem = "Preencha usuário e senha."
-
-    return render_template(
-        "cadastro.html",
-        mensagem=mensagem
-    )
-
-
-# ==========================================
-# LOGOUT
-# ==========================================
-
-@app.route("/logout")
-def logout():
-
-    # Remove os dados da sessão
-    session.clear()
-
-    return redirect(url_for("index"))
-
-
-# ==========================================
-# EXECUÇÃO DO SISTEMA
-# ==========================================
+# ==========================================================
+# EXECUTAR LOCALMENTE
+# ==========================================================
 
 if __name__ == "__main__":
-
-    # Garante que o banco exista
-    criar_banco()
-
-    # Inicia o Flask
     app.run(debug=True)

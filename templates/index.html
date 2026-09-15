@@ -7,16 +7,14 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Avaliação contínua: Aula 050.B</title>
+    <title>Avaliação contínua: Aula 060.C</title>
 
-
-    <!-- ==============================
-         CSS
-    =============================== -->
 
     <style>
 
-        /* CONFIGURAÇÃO GERAL */
+        /* =========================================
+           CONFIGURAÇÃO GERAL
+        ========================================= */
 
         * {
             box-sizing: border-box;
@@ -24,34 +22,45 @@
 
         body {
             margin: 0;
+
             font-family: Arial, Helvetica, sans-serif;
+
             color: #222;
+
             background-color: white;
         }
 
 
-        /* ==============================
+        /* =========================================
            MENU PRETO
-        =============================== */
+        ========================================= */
 
         .navbar {
+
             height: 54px;
+
             background-color: #222;
         }
 
         .navbar-container {
+
             width: 1100px;
+
             max-width: calc(100% - 40px);
+
             height: 54px;
 
             margin: 0 auto;
 
             display: flex;
+
             align-items: center;
         }
 
         .brand {
+
             color: #999;
+
             text-decoration: none;
 
             font-size: 20px;
@@ -60,98 +69,97 @@
         }
 
         .brand strong {
+
             color: #aaa;
         }
 
         .nav-link {
+
             color: #aaa;
+
             text-decoration: none;
 
             font-size: 16px;
 
             margin-right: 35px;
-
-            cursor: pointer;
         }
 
         .nav-link:hover {
+
             color: white;
         }
 
 
-        /* ==============================
-           CONTEÚDO DA HOME
-        =============================== */
+        /* =========================================
+           CONTEÚDO
+        ========================================= */
 
         .container {
+
             width: 1100px;
+
             max-width: calc(100% - 40px);
 
             margin: 0 auto;
         }
 
         .home {
+
             padding-top: 66px;
         }
 
 
-        /* ==============================
+        /* =========================================
            TÍTULO
-        =============================== */
+        ========================================= */
 
         .home h1 {
+
             font-size: 42px;
+
             font-weight: 400;
 
             margin: 0 0 18px 0;
         }
 
 
-        /* ==============================
-           TEXTOS
-        =============================== */
+        /* =========================================
+           SUBTÍTULO
+        ========================================= */
 
-        .info {
-            font-size: 28px;
+        .subtitulo {
 
-            margin: 0 0 20px 0;
+            font-size: 18px;
+
+            margin: 0 0 24px 0;
         }
 
 
-        /* ==============================
-           IP E HOST
-        =============================== */
-
-        .system-info {
-            margin-top: 45px;
-            margin-bottom: 20px;
-
-            font-size: 20px;
-            line-height: 1.65;
-        }
-
-
-        /* ==============================
+        /* =========================================
            LINHA
-        =============================== */
+        ========================================= */
 
         .divider {
+
             border: 0;
+
             border-top: 1px solid #eee;
 
             margin: 15px 0 24px 0;
         }
 
 
-        /* ==============================
-           CAMPOS DO FORMULÁRIO
-        =============================== */
+        /* =========================================
+           FORMULÁRIO
+        ========================================= */
 
         .form-group {
+
             margin-bottom: 18px;
         }
 
         .form-group label {
+
             display: block;
 
             font-weight: bold;
@@ -182,9 +190,9 @@
         }
 
 
-        /* ==============================
-           BOTÃO SUBMIT
-        =============================== */
+        /* =========================================
+           BOTÃO
+        ========================================= */
 
         .submit-button {
 
@@ -204,45 +212,42 @@
         }
 
         .submit-button:hover {
+
             background-color: #e6e6e6;
         }
 
 
-        /* ==============================
-           DATA
-        =============================== */
-
-        .date-info {
-
-            margin-top: 51px;
-
-            font-size: 18px;
-        }
-
-        .date-info p {
-            margin: 0 0 14px 0;
-        }
-
-
-        /* ==============================
-           RELAÇÃO DE USUÁRIOS
-        =============================== */
+        /* =========================================
+           SEÇÃO DE USUÁRIOS
+        ========================================= */
 
         .usuarios-section {
 
-            margin-top: 55px;
-            margin-bottom: 50px;
+            margin-top: 27px;
 
+            margin-bottom: 45px;
         }
 
         .usuarios-section h2 {
 
-            font-size: 28px;
+            font-size: 36px;
+
             font-weight: 400;
 
-            margin: 0 0 20px 0;
-
+            margin: 0 0 10px 0;
         }
+
+        .quantidade {
+
+            font-size: 18px;
+
+            margin: 0 0 18px 0;
+        }
+
+
+        /* =========================================
+           TABELAS
+        ========================================= */
 
         .usuarios-table {
 
@@ -251,7 +256,6 @@
             border-collapse: collapse;
 
             font-size: 16px;
-
         }
 
         .usuarios-table th,
@@ -262,62 +266,96 @@
             padding: 12px;
 
             border-bottom: 1px solid #ddd;
-
         }
 
         .usuarios-table th {
 
             font-weight: bold;
-
-            background-color: #f5f5f5;
-
-        }
-
-        .usuarios-table tr:hover {
-
-            background-color: #f9f9f9;
-
         }
 
 
-        /* ==============================
+        /* =========================================
+           SEÇÃO DE FUNÇÕES
+        ========================================= */
+
+        .funcoes-section {
+
+            margin-top: 40px;
+
+            margin-bottom: 50px;
+        }
+
+        .funcoes-section h2 {
+
+            font-size: 36px;
+
+            font-weight: 400;
+
+            margin: 0 0 10px 0;
+        }
+
+
+        /* =========================================
+           LISTA DE USUÁRIOS
+        ========================================= */
+
+        .lista-usuarios {
+
+            margin: 0;
+
+            padding-left: 30px;
+        }
+
+        .lista-usuarios li {
+
+            margin-bottom: 6px;
+        }
+
+
+        /* =========================================
            CELULAR
-        =============================== */
+        ========================================= */
 
         @media (max-width: 700px) {
 
             .navbar-container {
+
                 max-width: calc(100% - 30px);
             }
 
             .brand {
+
                 font-size: 16px;
+
                 margin-right: 20px;
             }
 
             .nav-link {
+
                 font-size: 14px;
+
                 margin-right: 15px;
             }
 
             .container {
+
                 max-width: calc(100% - 30px);
             }
 
             .home {
+
                 padding-top: 40px;
             }
 
             .home h1 {
+
                 font-size: 34px;
             }
 
-            .info {
-                font-size: 21px;
-            }
+            .usuarios-section h2,
+            .funcoes-section h2 {
 
-            .system-info {
-                font-size: 16px;
+                font-size: 30px;
             }
 
         }
@@ -330,43 +368,28 @@
 <body>
 
 
-    <!-- =================================
+    <!-- =========================================
          MENU
-    ================================== -->
+    ========================================= -->
 
     <nav class="navbar">
 
         <div class="navbar-container">
 
 
-            <!-- NOME DO SITE -->
+            <a href="/" class="brand">
 
-            <a
-                href="/"
-                class="brand"
-            >
                 Avaliação contínua:
-                <strong>Aula 050.B</strong>
+
+                <strong>Aula 060.C</strong>
+
             </a>
 
 
-            <!-- HOME -->
+            <a href="/" class="nav-link">
 
-            <a
-                href="/"
-                class="nav-link"
-            >
                 Home
-            </a>
 
-
-            <!-- LOGIN -->
-
-            <a
-                href="/login"
-                class="nav-link"
-            >
-                Login
             </a>
 
 
@@ -376,73 +399,42 @@
 
 
 
-    <!-- =================================
-         HOME
-    ================================== -->
+    <!-- =========================================
+         CONTEÚDO PRINCIPAL
+    ========================================= -->
 
     <main>
 
         <div class="container home">
 
 
-            <!-- TÍTULO -->
+            <!-- =====================================
+                 CABEÇALHO
+            ====================================== -->
 
             <h1>
-                Olá, {{ nome or "Estranho" }}!
+
+                Olá, Stranger!
+
             </h1>
 
 
-            <!-- INSTITUIÇÃO -->
+            <p class="subtitulo">
 
-            <p class="info">
-
-                A sua Instituição de ensino é
-
-                {{ instituicao or "None" }}
+                Prazer em conhecê-lo!
 
             </p>
 
-
-            <!-- DISCIPLINA -->
-
-            <p class="info">
-
-                Está cursando a disciplina de
-
-                {{ disciplina or "" }}
-
-            </p>
-
-
-            <!-- IP E HOST -->
-
-            <div class="system-info">
-
-                <div>
-                    O IP do computador remoto é: None
-                </div>
-
-                <div>
-                    O host da aplicação é: None
-                </div>
-
-            </div>
-
-
-            <!-- LINHA -->
 
             <hr class="divider">
 
 
 
-            <!-- =================================
+            <!-- =====================================
                  FORMULÁRIO
-            ================================== -->
+            ====================================== -->
 
-            <form
-                method="POST"
-                action="/"
-            >
+            <form method="POST" action="/">
 
 
                 <!-- NOME -->
@@ -451,99 +443,65 @@
 
                     <label for="nome">
 
-                        Informe o seu nome
+                        What is your name?
 
                     </label>
 
 
                     <input
+
                         type="text"
+
                         id="nome"
+
                         name="nome"
-                        value="{{ nome or '' }}"
+
+                        required
+
                     >
 
                 </div>
 
 
 
-                <!-- SOBRENOME -->
+                <!-- FUNÇÃO -->
 
                 <div class="form-group">
 
-                    <label for="sobrenome">
+                    <label for="funcao">
 
-                        Informe o seu sobrenome:
-
-                    </label>
-
-
-                    <input
-                        type="text"
-                        id="sobrenome"
-                        name="sobrenome"
-                        value="{{ sobrenome or '' }}"
-                    >
-
-                </div>
-
-
-
-                <!-- INSTITUIÇÃO -->
-
-                <div class="form-group">
-
-                    <label for="instituicao">
-
-                        Informe a sua Instituição de ensino:
-
-                    </label>
-
-
-                    <input
-                        type="text"
-                        id="instituicao"
-                        name="instituicao"
-                        value="{{ instituicao or '' }}"
-                    >
-
-                </div>
-
-
-
-                <!-- DISCIPLINA -->
-
-                <div class="form-group">
-
-                    <label for="disciplina">
-
-                        Informe a sua disciplina:
+                        Role?:
 
                     </label>
 
 
                     <select
-                        id="disciplina"
-                        name="disciplina"
+
+                        id="funcao"
+
+                        name="funcao"
+
+                        required
+
                     >
 
-                        <option value="DSWA5">
+                        <option value="Administrator">
 
-                            DSWA5
-
-                        </option>
-
-
-                        <option value="DSWA6">
-
-                            DSWA6
+                            Administrator
 
                         </option>
 
 
-                        <option value="DSWA7">
+                        <option value="Moderator">
 
-                            DSWA7
+                            Moderator
+
+                        </option>
+
+
+                        <option value="User">
+
+                            User
 
                         </option>
 
@@ -556,8 +514,11 @@
                 <!-- BOTÃO -->
 
                 <button
+
                     type="submit"
+
                     class="submit-button"
+
                 >
 
                     Submit
@@ -569,50 +530,45 @@
 
 
 
-            <!-- =================================
-                 DATA
-            ================================== -->
-
-            <div class="date-info">
-
-                <p>
-                    The local date and time is August 19, 2026 12:18 PM.
-                </p>
-
-                <p>
-                    That was in a few seconds.
-                </p>
-
-            </div>
-
-
-
-            <!-- =================================
+            <!-- =====================================
                  RELAÇÃO DE USUÁRIOS
-                 NOVA PARTE
-            ================================== -->
+            ====================================== -->
 
             <section class="usuarios-section">
 
-                <hr class="divider">
 
                 <h2>
+
                     Relação de usuários cadastrados
+
                 </h2>
 
 
+                <p class="quantidade">
+
+                    Quantidade: {{ quantidade_usuarios }}
+
+                </p>
+
+
                 <table class="usuarios-table">
+
 
                     <thead>
 
                         <tr>
 
                             <th>
+
                                 Nome do usuário
+
                             </th>
 
+
                             <th>
+
                                 Função
+
                             </th>
 
                         </tr>
@@ -622,35 +578,173 @@
 
                     <tbody>
 
-                        {% for usuario in usuarios %}
 
-                        <tr>
+                        {% if usuarios %}
 
-                            <td>
-                                {{ usuario["usuario"] }}
-                            </td>
 
-                            <td>
-                                {{ usuario["funcao"] }}
-                            </td>
+                            {% for usuario in usuarios %}
 
-                        </tr>
+                            <tr>
+
+                                <td>
+
+                                    {{ usuario["nome"] }}
+
+                                </td>
+
+
+                                <td>
+
+                                    {{ usuario["funcao"] }}
+
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
 
                         {% else %}
 
-                        <tr>
 
-                            <td colspan="2">
-                                Nenhum usuário cadastrado.
-                            </td>
+                            <tr>
 
-                        </tr>
+                                <td colspan="2">
 
-                        {% endfor %}
+                                    Nenhum usuário cadastrado.
+
+                                </td>
+
+                            </tr>
+
+
+                        {% endif %}
+
 
                     </tbody>
 
+
                 </table>
+
+
+            </section>
+
+
+
+            <!-- =====================================
+                 RELAÇÃO DE FUNÇÕES
+            ====================================== -->
+
+            <section class="funcoes-section">
+
+
+                <h2>
+
+                    Relação de funções cadastradas
+
+                </h2>
+
+
+                <p class="quantidade">
+
+                    Quantidade: {{ quantidade_funcoes }}
+
+                </p>
+
+
+                <table class="usuarios-table">
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+
+                                Funções
+
+                            </th>
+
+
+                            <th>
+
+                                Usuários
+
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                        {% for funcao in funcoes %}
+
+
+                        <tr>
+
+
+                            <!-- NOME DA FUNÇÃO -->
+
+                            <td>
+
+                                {{ funcao["nome"] }}
+
+                            </td>
+
+
+                            <!-- USUÁRIOS DA FUNÇÃO -->
+
+                            <td>
+
+
+                                {% if usuarios_por_funcao[funcao["nome"]] %}
+
+
+                                    <ol class="lista-usuarios">
+
+
+                                        {% for usuario in usuarios_por_funcao[funcao["nome"]] %}
+
+
+                                        <li>
+
+                                            {{ usuario["nome"] }}
+
+                                        </li>
+
+
+                                        {% endfor %}
+
+
+                                    </ol>
+
+
+                                {% else %}
+
+
+                                    Nenhum usuário cadastrado.
+
+
+                                {% endif %}
+
+
+                            </td>
+
+
+                        </tr>
+
+
+                        {% endfor %}
+
+
+                    </tbody>
+
+
+                </table>
+
 
             </section>
 
